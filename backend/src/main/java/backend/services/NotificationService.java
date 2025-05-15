@@ -25,11 +25,11 @@ public class NotificationService {
         this.userRepository = userRepository;
     }
 
-    
-
-    public List<Notification> getNotificationsByUser(String userId) {
-        return notificationRepository.findByReceiverIdAndDeleteStatusFalse(userId);
+    public List<Notification> getAllNotifications() {
+        return notificationRepository.findAllByDeleteStatusFalse();
     }
+
+    
 
     public Optional<Notification> getNotificationById(String id) {
         return notificationRepository.findByIdAndDeleteStatusFalse(id);
