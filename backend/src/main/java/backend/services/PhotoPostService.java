@@ -66,7 +66,14 @@ public class PhotoPostService {
         }).orElse(null);
     }
 
-    
+    // Delete post (soft delete)
+    public boolean deletePost(String id) {
+        return cookingPostRepository.findById(id).map(post -> {
+            post.setDeleteStatus(true);
+            cookingPostRepository.save(post);
+            return true;
+        }).orElse(false);
+    }
 
    
 
