@@ -72,7 +72,22 @@ public class MediaController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    
+    // Create media with file upload
+    @PostMapping(value = "/upload/post/{postId}", consumes = "multipart/form-data")
+    public ResponseEntity<Media> uploadMedia(
+            @RequestParam("type") String type,
+            @RequestParam("file") MultipartFile file,
+            @PathVariable String postId) {
+        try {
+            Media media = mediaService.createMediaWithFile(type, file, postId);
+            if (media != null) {
+                return new ResponseEntity<>(media, HttpStatus.CREATED);
+            }
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
    
 
