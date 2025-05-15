@@ -40,7 +40,16 @@ public class MediaService {
         return mediaRepository.findByRelatedPostIdAndDeleteStatusFalse(postId);
     }
 
-    
+    // Create media (basic version without file upload)
+    public Media createMedia(Media media, String postId) {
+        Optional<PhotoPost> post = cookingPostRepository.findById(postId);
+        if (post.isPresent()) {
+            media.setRelatedPost(post.get());
+            media.setDeleteStatus(false);
+            return mediaRepository.save(media);
+        }
+        return null;
+    }
 
   
 
