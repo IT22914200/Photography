@@ -37,15 +37,18 @@ public class NotificationService {
         return notificationRepository.findByIdAndDeleteStatusFalse(id);
     }
 
-    
+    public Notification createNotification(Notification notification, String receiverId) {
+        Optional<User> userOptional = userRepository.findById(receiverId);
+        if (userOptional.isPresent()) {
+            notification.setReceiver(userOptional.get());
+            notification.setDeleteStatus(false);
 
-    public boolean deleteNotification(String id) {
-        return notificationRepository.findById(id).map(notification -> {
-            notification.setDeleteStatus(true);
-            notificationRepository.save(notification);
-            return true;
-        }).orElse(false);
+            return notificationRepository.save(notification);
+        }
+        return null;
     }
+
+    
 
     public void createUserNotification(String userId, String title, String subtitle) {
         Notification notification = new Notification();
