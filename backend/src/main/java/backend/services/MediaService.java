@@ -70,7 +70,14 @@ public class MediaService {
         return null;
     }
 
-    
+    // Update media
+    public Media updateMedia(String id, Media mediaDetails) {
+        return mediaRepository.findById(id).map(media -> {
+            media.setType(mediaDetails.getType());
+            media.setUrl(mediaDetails.getUrl());
+            return mediaRepository.save(media);
+        }).orElse(null);
+    }
 
     
 }
