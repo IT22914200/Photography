@@ -102,17 +102,27 @@ public class UserController {
         return userRepository.existsByEmail(email);
     }
 
-    
-
-    @PutMapping("/user/{userID}/unfollow")
-    public ResponseEntity<?> unfollowUser(@PathVariable String userID, @RequestBody Map<String, String> request) {
-        String unfollowUserID = request.get("unfollowUserID");
+    @PutMapping("/user/{userID}/follow")
+    public ResponseEntity<?> followUser(@PathVariable String userID, @RequestBody Map<String, String> request) {
+        String followUserID = request.get("followUserID");
         return userRepository.findById(userID).map(user -> {
-            user.getFollowedUsers().remove(unfollowUserID);
+            user.getFollowedUsers().add(followUserID);
             userRepository.save(user);
-            return ResponseEntity.ok(Map.of("message", "User unfollowed successfully"));
+
+            // Create a notification for the followed user
+            String followerFullName = userRepository.findById(userID)
+                    .map(follower -> follower.getFullname())
+                    .orElse("Someone");
+            String message = String.format("%s started following you.", followerFullName);
+            String currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            NotificationModel notification = new NotificationModel(followUserID, message, false, currentDateTime);
+            notificationRepository.save(notification);
+
+            return ResponseEntity.ok(Map.of("message", "User followed successfully"));
         }).orElseThrow(() -> new UserNotFoundException("User not found: " + userID));
     }
+
+    
 
     @GetMapping("/user/{userID}/followedUsers")
     public List<String> getFollowedUsers(@PathVariable String userID) {
