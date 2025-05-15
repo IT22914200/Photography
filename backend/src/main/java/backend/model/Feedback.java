@@ -12,16 +12,15 @@ public class Feedback {
     @Id
     private String id;
 
-     // Reference to the User who provided the feedback
+    @DBRef
+    private User user; // Reference to the User who provided the feedback
 
     private String comment; // The actual feedback message
 
     private Date createdAt; // When the feedback was submitted
 
     // Default constructor
-    public Feedback() {
-        this.createdAt = new Date(); // Set default timestamp
-    }
+    
 
     // Constructor with parameters
     public Feedback(User user, String comment) {
