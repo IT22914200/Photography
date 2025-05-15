@@ -56,5 +56,10 @@ public class NotificationService {
         }).orElse(false);
     }
 
-    
+    public void createUserNotification(String userId, String title, String subtitle) {
+        Notification notification = new Notification();
+        notification.setTitle(title);
+        notification.setSubtitle(subtitle);
+        createNotification(notification, userId);
+    }
 }
