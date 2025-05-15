@@ -99,47 +99,20 @@ public class FollowService {
         return true;
     }
 
-    
     /**
-     * Get users followers with pagination
-     * @param userId User ID to get followers for
-     * @param page Page number (0-based)
-     * @param size Page size
-     * @param currentUserId ID of current user to check follow status
-     * @return Paginated response with followers
+     * Check follow status between two users
+     * @param userId Current user ID
+     * @param targetUserId Target user ID
+     * @return FollowStatusDTO containing follow status information
      */
-    public PagedFollowResponseDTO getFollowers(String userId, int page, int size, String currentUserId) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Follow> followPage = followRepository.findByFollowingId(userId, pageable);
+    public FollowStatusDTO checkFollowStatus(String userId, String targetUserId) {
+        boolean isFollowing = followRepository.findByFollowerIdAndFollowingId(userId, targetUserId).isPresent();
+        boolean isFollower = followRepository.findByFollowerIdAndFollowingId(targetUserId, userId).isPresent();
 
-        List<UserFollowInfoDTO> followers = new ArrayList<>();
-
-        for (Follow follow : followPage.getContent()) {
-            Optional<User> userOpt = userRepository.findById(follow.getFollowerId());
-
-            if (userOpt.isPresent()) {
-                User user = userOpt.get();
-                boolean isFollowing = !currentUserId.equals(userId) &&
-                        followRepository.findByFollowerIdAndFollowingId(currentUserId, user.getId()).isPresent();
-
-                followers.add(new UserFollowInfoDTO(
-                        user.getId(),
-                        user.getUsername(),
-                        user.getName(),
-                        user.getFollowersCount(),
-                        user.getFollowingCount(),
-                        isFollowing
-                ));
-            }
-        }
-
-        return new PagedFollowResponseDTO(
-                followers,
-                followPage.getTotalPages(),
-                followPage.getTotalElements(),
-                followPage.getNumber()
-        );
+        return new FollowStatusDTO(isFollowing, isFollower);
     }
+
+    
 
     /**
      * Get users following with pagination
