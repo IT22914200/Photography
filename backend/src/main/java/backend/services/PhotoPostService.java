@@ -34,6 +34,10 @@ public class PhotoPostService {
         return cookingPostRepository.findByCreatedByIdAndDeleteStatusFalse(userId);
     }
 
+    // Get post by ID
+    public Optional<PhotoPost> getPostById(String id) {
+        return cookingPostRepository.findByIdAndDeleteStatusFalse(id);
+    }
 
 
     
