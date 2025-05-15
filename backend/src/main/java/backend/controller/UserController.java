@@ -86,13 +86,17 @@ public class UserController {
                 }).orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    
-
-    // check email
-    @GetMapping("/checkEmail")
-    public boolean checkEmailExists(@RequestParam String email) {
-        return userRepository.existsByEmail(email);
+    //delete
+    @DeleteMapping("/user/{id}")
+    String deleteProfile(@PathVariable String id) {
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFoundException(id);
+        }
+        userRepository.deleteById(id);
+        return "user account " + id + " deleted";
     }
+
+    
 
     @PutMapping("/user/{userID}/follow")
     public ResponseEntity<?> followUser(@PathVariable String userID, @RequestBody Map<String, String> request) {
