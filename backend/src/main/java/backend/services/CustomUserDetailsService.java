@@ -19,5 +19,15 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.appUserRepository = appUserRepository;
     }
 
-    
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        com.example.photographsystem.models.User user = appUserRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+
+        return User.builder()
+                .username(user.getEmail())
+                .password(user.getPassword())
+                .roles("USER")
+                .build();
+    }
 }
