@@ -30,7 +30,10 @@ public class MediaService {
         return mediaRepository.findAllByDeleteStatusFalse();
     }
 
-    
+    // Get media by ID
+    public Optional<Media> getMediaById(String id) {
+        return mediaRepository.findByIdAndDeleteStatusFalse(id);
+    }
 
 
     
