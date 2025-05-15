@@ -112,31 +112,29 @@ public class FollowService {
         return new FollowStatusDTO(isFollowing, isFollower);
     }
 
-    
-
     /**
-     * Get users following with pagination
-     * @param userId User ID to get following users for
+     * Get users followers with pagination
+     * @param userId User ID to get followers for
      * @param page Page number (0-based)
      * @param size Page size
      * @param currentUserId ID of current user to check follow status
-     * @return Paginated response with following users
+     * @return Paginated response with followers
      */
-    public PagedFollowResponseDTO getFollowing(String userId, int page, int size, String currentUserId) {
+    public PagedFollowResponseDTO getFollowers(String userId, int page, int size, String currentUserId) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Follow> followPage = followRepository.findByFollowerId(userId, pageable);
+        Page<Follow> followPage = followRepository.findByFollowingId(userId, pageable);
 
-        List<UserFollowInfoDTO> following = new ArrayList<>();
+        List<UserFollowInfoDTO> followers = new ArrayList<>();
 
         for (Follow follow : followPage.getContent()) {
-            Optional<User> userOpt = userRepository.findById(follow.getFollowingId());
+            Optional<User> userOpt = userRepository.findById(follow.getFollowerId());
 
             if (userOpt.isPresent()) {
                 User user = userOpt.get();
                 boolean isFollowing = !currentUserId.equals(userId) &&
                         followRepository.findByFollowerIdAndFollowingId(currentUserId, user.getId()).isPresent();
 
-                following.add(new UserFollowInfoDTO(
+                followers.add(new UserFollowInfoDTO(
                         user.getId(),
                         user.getUsername(),
                         user.getName(),
@@ -148,10 +146,12 @@ public class FollowService {
         }
 
         return new PagedFollowResponseDTO(
-                following,
+                followers,
                 followPage.getTotalPages(),
                 followPage.getTotalElements(),
                 followPage.getNumber()
         );
     }
+
+    
 }
