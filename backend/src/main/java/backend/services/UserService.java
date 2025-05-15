@@ -64,5 +64,16 @@ public class UserService {
         }).orElse(false);
     }
 
-    
+    // Login by email and password
+    public User login(String email, String password) {
+        Optional<User> userOptional = userRepository.findByEmailAndDeleteStatusFalse(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                return user;
+            }
+        }
+        return null;
+    }
+
 }

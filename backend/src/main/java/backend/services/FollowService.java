@@ -38,6 +38,7 @@ public class FollowService {
      * @param followingId The ID of the user to be followed
      * @return True if follow was successful, false otherwise
      */
+
     @Transactional
     public boolean followUser(String followerId, String followingId) {
         // Check if users exist
@@ -47,6 +48,7 @@ public class FollowService {
         if (follower.isEmpty() || following.isEmpty()) {
             return false;
         }
+
 
         // Check if the follow relationship already exists
         Optional<Follow> existingFollow = followRepository.findByFollowerIdAndFollowingId(followerId, followingId);
