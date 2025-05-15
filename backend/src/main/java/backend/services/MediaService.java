@@ -79,5 +79,12 @@ public class MediaService {
         }).orElse(null);
     }
 
-    
+    // Delete media (soft delete)
+    public boolean deleteMedia(String id) {
+        return mediaRepository.findById(id).map(media -> {
+            media.setDeleteStatus(true);
+            mediaRepository.save(media);
+            return true;
+        }).orElse(false);
+    }
 }
