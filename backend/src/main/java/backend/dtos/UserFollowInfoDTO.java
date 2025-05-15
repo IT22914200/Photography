@@ -45,7 +45,9 @@ public class UserFollowInfoDTO {
         this.name = name;
     }
 
-    
+    public int getFollowersCount() {
+        return followersCount;
+    }
 
     public void setFollowersCount(int followersCount) {
         this.followersCount = followersCount;
