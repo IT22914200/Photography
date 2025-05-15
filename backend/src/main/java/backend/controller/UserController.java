@@ -66,21 +66,13 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    
-
-    //update
-    @PutMapping("/user/{id}")
-    UserModel updateProfile(@RequestBody UserModel newUserModel, @PathVariable String id) {
+    @GetMapping("/user/{id}")
+    UserModel getUserId(@PathVariable String id) {
         return userRepository.findById(id)
-                .map(userModel -> {
-                    userModel.setFullname(newUserModel.getFullname());
-                    userModel.setEmail(newUserModel.getEmail());
-                    userModel.setPassword(newUserModel.getPassword());
-                    userModel.setPhone(newUserModel.getPhone());
-                    userModel.setSkills(newUserModel.getSkills());
-                    return userRepository.save(userModel);
-                }).orElseThrow(() -> new UserNotFoundException(id));
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
+
+    
 
     //delete
     @DeleteMapping("/user/{id}")
