@@ -20,14 +20,12 @@ public class Feedback {
     private Date createdAt; // When the feedback was submitted
 
     // Default constructor
-    
+    public Feedback() {
+        this.createdAt = new Date(); // Set default timestamp
+    }
 
     // Constructor with parameters
-    public Feedback(User user, String comment) {
-        this.user = user;
-        this.comment = comment;
-        this.createdAt = new Date();
-    }
+    
 
     // Getters and setters
 
