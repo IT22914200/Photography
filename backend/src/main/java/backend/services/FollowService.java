@@ -94,18 +94,10 @@ public class FollowService {
             return false; // Not following
         }
 
+        // Delete the follow relationship
+        followRepository.delete(existingFollow.get());
+
         
-
-        // Update follower counts
-        User followerUser = follower.get();
-        followerUser.setFollowingCount(Math.max(0, followerUser.getFollowingCount() - 1));
-        userRepository.save(followerUser);
-
-        User followingUser = following.get();
-        followingUser.setFollowersCount(Math.max(0, followingUser.getFollowersCount() - 1));
-        userRepository.save(followingUser);
-
-        return true;
     }
 
     /**
