@@ -33,7 +33,9 @@ public class UserFollowInfoDTO {
         return username;
     }
 
-    
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getName() {
         return name;
@@ -43,9 +45,7 @@ public class UserFollowInfoDTO {
         this.name = name;
     }
 
-    public int getFollowersCount() {
-        return followersCount;
-    }
+    
 
     public void setFollowersCount(int followersCount) {
         this.followersCount = followersCount;
