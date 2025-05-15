@@ -55,17 +55,14 @@ public class UserService {
         }).orElse(null);
     }
 
-   
-
-    // Login by email and password
-    public User login(String email, String password) {
-        Optional<User> userOptional = userRepository.findByEmailAndDeleteStatusFalse(email);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            if (passwordEncoder.matches(password, user.getPassword())) {
-                return user;
-            }
-        }
-        return null;
+    // Delete user (soft delete)
+    public boolean deleteUser(String id) {
+        return userRepository.findById(id).map(user -> {
+            user.setDeleteStatus(true);
+            userRepository.save(user);
+            return true;
+        }).orElse(false);
     }
+
+    
 }
