@@ -40,7 +40,18 @@ public class FeedbackController {
         }
     }
 
-    
+    // Get feedback by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Feedback> getFeedbackById(@PathVariable String id) {
+        try {
+            Feedback feedback = feedbackService.getFeedbackById(id);
+            return new ResponseEntity<>(feedback, HttpStatus.OK);
+        } catch (RuntimeException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     // Update feedback
     @PutMapping("/{id}")

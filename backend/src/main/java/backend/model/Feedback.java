@@ -12,8 +12,7 @@ public class Feedback {
     @Id
     private String id;
 
-    @DBRef
-    private User user; // Reference to the User who provided the feedback
+     // Reference to the User who provided the feedback
 
     private String comment; // The actual feedback message
 
