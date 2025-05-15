@@ -48,12 +48,13 @@ public class NotificationService {
         return null;
     }
 
-    
-
-    public void createUserNotification(String userId, String title, String subtitle) {
-        Notification notification = new Notification();
-        notification.setTitle(title);
-        notification.setSubtitle(subtitle);
-        createNotification(notification, userId);
+    public boolean deleteNotification(String id) {
+        return notificationRepository.findById(id).map(notification -> {
+            notification.setDeleteStatus(true);
+            notificationRepository.save(notification);
+            return true;
+        }).orElse(false);
     }
+
+    
 }
