@@ -10,20 +10,29 @@ import com.example.photographsystem.repositories.UserRepository;
 import java.util.List;
 import java.util.Optional;
 
+@Service
+public class UserService {
 
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    // Get all users
+    public List<User> getAllUsers() {
+        return userRepository.findAllByDeleteStatusFalse();
+    }
 
     // Get user by ID
     public Optional<User> getUserById(String id) {
         return userRepository.findByIdAndDeleteStatusFalse(id);
     }
 
-    // Create user
-    public User createUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setDeleteStatus(false);
-        return userRepository.save(user);
-    }
-
+    
     // Update user
     public User updateUser(String id, User userDetails) {
         return userRepository.findById(id).map(user -> {
