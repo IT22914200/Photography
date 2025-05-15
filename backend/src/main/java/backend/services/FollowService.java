@@ -153,5 +153,44 @@ public class FollowService {
         );
     }
 
-    
+    /**
+     * Get users following with pagination
+     * @param userId User ID to get following users for
+     * @param page Page number (0-based)
+     * @param size Page size
+     * @param currentUserId ID of current user to check follow status
+     * @return Paginated response with following users
+     */
+    public PagedFollowResponseDTO getFollowing(String userId, int page, int size, String currentUserId) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Follow> followPage = followRepository.findByFollowerId(userId, pageable);
+
+        List<UserFollowInfoDTO> following = new ArrayList<>();
+
+        for (Follow follow : followPage.getContent()) {
+            Optional<User> userOpt = userRepository.findById(follow.getFollowingId());
+
+            if (userOpt.isPresent()) {
+                User user = userOpt.get();
+                boolean isFollowing = !currentUserId.equals(userId) &&
+                        followRepository.findByFollowerIdAndFollowingId(currentUserId, user.getId()).isPresent();
+
+                following.add(new UserFollowInfoDTO(
+                        user.getId(),
+                        user.getUsername(),
+                        user.getName(),
+                        user.getFollowersCount(),
+                        user.getFollowingCount(),
+                        isFollowing
+                ));
+            }
+        }
+
+        return new PagedFollowResponseDTO(
+                following,
+                followPage.getTotalPages(),
+                followPage.getTotalElements(),
+                followPage.getNumber()
+        );
+    }
 }
