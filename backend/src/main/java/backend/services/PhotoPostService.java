@@ -75,7 +75,14 @@ public class PhotoPostService {
         }).orElse(false);
     }
 
-   
+    // Increment like count
+    public boolean incrementLikeCount(String postId) {
+        return cookingPostRepository.findById(postId).map(post -> {
+            post.setLikeCount(post.getLikeCount() + 1);
+            cookingPostRepository.save(post);
+            return true;
+        }).orElse(false);
+    }
 
    
 }
