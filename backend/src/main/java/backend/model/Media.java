@@ -27,6 +27,46 @@ public class Media {
         this.deleteStatus = deleteStatus;
         this.relatedPost = relatedPost;
     }
-    
 
+    // Getters and setters
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public boolean isDeleteStatus() {
+        return deleteStatus;
+    }
+
+    public void setDeleteStatus(boolean deleteStatus) {
+        this.deleteStatus = deleteStatus;
+    }
+
+    public PhotoPost getRelatedPost() {
+        return relatedPost;
+    }
+
+    public void setRelatedPost(PhotoPost relatedPost) {
+        this.relatedPost = relatedPost;
+    }
 }
