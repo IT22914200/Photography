@@ -96,6 +96,14 @@ public class PhotoPostController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-  
+    // Delete post
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePost(@PathVariable String id) {
+        if (cookingPostService.deletePost(id)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
   
 }
