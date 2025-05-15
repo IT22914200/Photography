@@ -57,7 +57,14 @@ public class PhotoPostService {
         return null;
     }
 
-    
+    // Update post
+    public PhotoPost updatePost(String id, PhotoPost postDetails) {
+        return cookingPostRepository.findById(id).map(post -> {
+            post.setTitle(postDetails.getTitle());
+            post.setDescription(postDetails.getDescription());
+            return cookingPostRepository.save(post);
+        }).orElse(null);
+    }
 
     
 
