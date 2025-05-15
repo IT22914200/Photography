@@ -72,19 +72,7 @@ public class UserController {
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    //update
-    @PutMapping("/user/{id}")
-    UserModel updateProfile(@RequestBody UserModel newUserModel, @PathVariable String id) {
-        return userRepository.findById(id)
-                .map(userModel -> {
-                    userModel.setFullname(newUserModel.getFullname());
-                    userModel.setEmail(newUserModel.getEmail());
-                    userModel.setPassword(newUserModel.getPassword());
-                    userModel.setPhone(newUserModel.getPhone());
-                    userModel.setSkills(newUserModel.getSkills());
-                    return userRepository.save(userModel);
-                }).orElseThrow(() -> new UserNotFoundException(id));
-    }
+    
 
     //delete
     @DeleteMapping("/user/{id}")
@@ -96,7 +84,11 @@ public class UserController {
         return "user account " + id + " deleted";
     }
 
-    
+    // check email
+    @GetMapping("/checkEmail")
+    public boolean checkEmailExists(@RequestParam String email) {
+        return userRepository.existsByEmail(email);
+    }
 
     @PutMapping("/user/{userID}/follow")
     public ResponseEntity<?> followUser(@PathVariable String userID, @RequestBody Map<String, String> request) {
