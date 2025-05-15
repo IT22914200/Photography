@@ -52,7 +52,50 @@ public class PhotoPostController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-  
+    // Create new post
+    @PostMapping
+    public ResponseEntity<PhotoPost> createPost(@RequestBody PhotoPostDTO postDto
+                                                 ) {
+        String userId = postDto.getCreatedBy();
+        Optional<User> user = userService.getUserById(userId);
+        if(user.isPresent()){
+            PhotoPost post = new PhotoPost();
+            post.setCreatedBy(user.get());
+            post.setDescription(postDto.getDescription());
+            post.setTitle(postDto.getTitle());
+            post.setCreatedAt(postDto.getCreatedAt());
+            post.setLikeCount(postDto.getLikeCount());
+            post.setDeleteStatus(false);
+            PhotoPost createdPost = cookingPostService.createPost(post, userId);
+            if (createdPost != null) {
+                return new ResponseEntity<>(createdPost, HttpStatus.CREATED);
+            }
+        }
 
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    // Update post
+    @PutMapping("/{id}")
+    public ResponseEntity<PhotoPost> updatePost(@PathVariable String id,
+                                                  @RequestBody PhotoPostDTO postDetailsDTO) {
+        Optional<User> user = userService.getUserById(postDetailsDTO.getCreatedBy());
+        if(user.isPresent()){
+            PhotoPost post  =new PhotoPost();
+            post.setCreatedBy(user.get());
+            post.setDescription(postDetailsDTO.getDescription());
+            post.setTitle(postDetailsDTO.getTitle());
+            post.setCreatedAt(postDetailsDTO.getCreatedAt());
+            post.setLikeCount(postDetailsDTO.getLikeCount());
+            post.setDeleteStatus(false);
+            PhotoPost updatedPost = cookingPostService.updatePost(id, post);
+            if (updatedPost != null) {
+                return new ResponseEntity<>(updatedPost, HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+  
   
 }
