@@ -84,5 +84,14 @@ public class PhotoPostService {
         }).orElse(false);
     }
 
-   
+    // Decrement like count
+    public boolean decrementLikeCount(String postId) {
+        return cookingPostRepository.findById(postId).map(post -> {
+            if (post.getLikeCount() > 0) {
+                post.setLikeCount(post.getLikeCount() - 1);
+            }
+            cookingPostRepository.save(post);
+            return true;
+        }).orElse(false);
+    }
 }
