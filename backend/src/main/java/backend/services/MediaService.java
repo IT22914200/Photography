@@ -35,6 +35,10 @@ public class MediaService {
         return mediaRepository.findByIdAndDeleteStatusFalse(id);
     }
 
+    // Get media by post ID
+    public List<Media> getMediaByPostId(String postId) {
+        return mediaRepository.findByRelatedPostIdAndDeleteStatusFalse(postId);
+    }
 
     
 
