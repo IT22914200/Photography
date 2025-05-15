@@ -88,10 +88,13 @@ public class FollowService {
             return false;
         }
 
-        
+        // Check if the follow relationship exists
+        Optional<Follow> existingFollow = followRepository.findByFollowerIdAndFollowingId(followerId, followingId);
+        if (existingFollow.isEmpty()) {
+            return false; // Not following
+        }
 
-        // Delete the follow relationship
-        followRepository.delete(existingFollow.get());
+        
 
         // Update follower counts
         User followerUser = follower.get();
