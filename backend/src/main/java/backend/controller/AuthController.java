@@ -60,5 +60,37 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthResponse(token, user.get().getId()));
     }
 
-    
+    @GetMapping("/oauth2/user")
+    public ResponseEntity<?> getOAuth2User(Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.ok(null);
+        }
+
+        OAuth2User oAuth2User = (OAuth2User) ((Authentication) principal).getPrincipal();
+        Map<String, Object> attributes = oAuth2User.getAttributes();
+
+        // Extract user info from OAuth2 attributes
+        String email = (String) attributes.get("email");
+        String name = (String) attributes.get("name");
+
+        // Check if user exists, if not create new user
+        User user = userRepository.findByEmail(email)
+                .orElseGet(() -> {
+                    User newUser = new User();
+                    newUser.setEmail(email);
+                    newUser.setUsername(email);
+                    newUser.setName(name);
+                    return userRepository.save(newUser);
+                });
+        if (user.isDeleteStatus()) {
+            return ResponseEntity.status(403).body("Account has been deleted");
+        }
+        OAuth2UserDto userDto = new OAuth2UserDto();
+        userDto.setId(user.getId());
+        userDto.setName(user.getName());
+        userDto.setEmail(user.getEmail());
+
+        return ResponseEntity.ok(userDto);
+    }
+
 }
