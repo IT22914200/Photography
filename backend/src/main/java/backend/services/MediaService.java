@@ -51,7 +51,24 @@ public class MediaService {
         return null;
     }
 
-  
+    // Create media with file upload (simplified version)
+    public Media createMediaWithFile(String type, MultipartFile file, String postId) throws IOException {
+        Optional<PhotoPost> post = cookingPostRepository.findById(postId);
+        if (post.isPresent()) {
+            // In a real implementation, you would save the file to storage (S3, local filesystem, etc.)
+            // and store the URL/path in the database
+            String fileUrl = "https://your-storage.com/media/" + file.getOriginalFilename();
+
+            Media media = new Media();
+            media.setType(type);
+            media.setUrl(fileUrl);
+            media.setRelatedPost(post.get());
+            media.setDeleteStatus(false);
+
+            return mediaRepository.save(media);
+        }
+        return null;
+    }
 
     
 
