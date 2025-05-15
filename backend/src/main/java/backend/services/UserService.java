@@ -32,22 +32,14 @@ public class UserService {
         return userRepository.findByIdAndDeleteStatusFalse(id);
     }
 
-    
-    // Update user
-    public User updateUser(String id, User userDetails) {
-        return userRepository.findById(id).map(user -> {
-            user.setName(userDetails.getName());
-            user.setEmail(userDetails.getEmail());
-            user.setBirthday(userDetails.getBirthday());
-            if (userDetails.getPassword() != null && !userDetails.getPassword().isEmpty()) {
-                user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
-            }
-            user.setGender(userDetails.getGender());
-            user.setAge(userDetails.getAge());
-            user.setPublic(userDetails.isPublic());
-            return userRepository.save(user);
-        }).orElse(null);
+    // Create user
+    public User createUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setDeleteStatus(false);
+        return userRepository.save(user);
     }
+
+    
 
     // Delete user (soft delete)
     public boolean deleteUser(String id) {
