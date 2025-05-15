@@ -40,4 +40,33 @@ public class FeedbackController {
         }
     }
 
+    
+
+    // Update feedback
+    @PutMapping("/{id}")
+    public ResponseEntity<Feedback> updateFeedback(
+            @PathVariable String id,
+            @RequestBody Feedback updatedFeedback) {
+        try {
+            Feedback updated = feedbackService.updateFeedback(id, updatedFeedback);
+            return new ResponseEntity<>(updated, HttpStatus.OK);
+        } catch (RuntimeException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // Delete feedback
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteFeedback(@PathVariable String id) {
+        try {
+            feedbackService.deleteFeedback(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (RuntimeException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
