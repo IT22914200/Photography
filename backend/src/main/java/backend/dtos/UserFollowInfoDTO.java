@@ -8,7 +8,17 @@ public class UserFollowInfoDTO {
     private int followingCount;
     private boolean isFollowing;
 
-    
+    public UserFollowInfoDTO() {
+    }
+
+    public UserFollowInfoDTO(String id, String username, String name, int followersCount, int followingCount, boolean isFollowing) {
+        this.id = id;
+        this.username = username;
+        this.name = name;
+        this.followersCount = followersCount;
+        this.followingCount = followingCount;
+        this.isFollowing = isFollowing;
+    }
 
     // Getters and setters
     public String getId() {
@@ -19,9 +29,7 @@ public class UserFollowInfoDTO {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
+    
 
     public void setUsername(String username) {
         this.username = username;
