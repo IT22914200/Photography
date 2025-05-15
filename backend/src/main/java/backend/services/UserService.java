@@ -39,16 +39,23 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    
-
-    // Delete user (soft delete)
-    public boolean deleteUser(String id) {
+    // Update user
+    public User updateUser(String id, User userDetails) {
         return userRepository.findById(id).map(user -> {
-            user.setDeleteStatus(true);
-            userRepository.save(user);
-            return true;
-        }).orElse(false);
+            user.setName(userDetails.getName());
+            user.setEmail(userDetails.getEmail());
+            user.setBirthday(userDetails.getBirthday());
+            if (userDetails.getPassword() != null && !userDetails.getPassword().isEmpty()) {
+                user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
+            }
+            user.setGender(userDetails.getGender());
+            user.setAge(userDetails.getAge());
+            user.setPublic(userDetails.isPublic());
+            return userRepository.save(user);
+        }).orElse(null);
     }
+
+   
 
     // Login by email and password
     public User login(String email, String password) {
