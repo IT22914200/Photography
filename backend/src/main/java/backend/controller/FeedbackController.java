@@ -29,6 +29,15 @@ public class FeedbackController {
         }
     }
 
-    
+    // Get all feedbacks as DTOs
+    @GetMapping
+    public ResponseEntity<List<FeedbackDTO>> getAllFeedbacks() {
+        try {
+            List<FeedbackDTO> feedbackDTOs = feedbackService.getAllFeedbacks();
+            return new ResponseEntity<>(feedbackDTOs, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }
