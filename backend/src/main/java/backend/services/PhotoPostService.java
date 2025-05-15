@@ -39,6 +39,23 @@ public class PhotoPostService {
         return cookingPostRepository.findByIdAndDeleteStatusFalse(id);
     }
 
+    // Create post
+    public PhotoPost createPost(PhotoPost post, String userId) {
+        try{
+            Optional<User> userOptional = userRepository.findById(userId);
+            if (userOptional.isPresent()) {
+                post.setCreatedBy(userOptional.get());
+                post.setCreatedAt(new Date());
+                post.setDeleteStatus(false);
+                post.setLikeCount(0);
+                return cookingPostRepository.save(post);
+            }
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return null;
+    }
 
     
 
