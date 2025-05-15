@@ -17,16 +17,12 @@ public class NotificationController {
     @Autowired
     private NotificationRepository notificationRepository;
 
-    
-
-    @PutMapping("/{id}/markAsRead")
-    public ResponseEntity<?> markAsRead(@PathVariable String id) {
-        return notificationRepository.findById(id).map(notification -> {
-            notification.setRead(true);
-            notificationRepository.save(notification);
-            return ResponseEntity.ok("Notification marked as read");
-        }).orElse(ResponseEntity.notFound().build());
+    @GetMapping("/{userId}")
+    public List<NotificationModel> getNotifications(@PathVariable String userId) {
+        return notificationRepository.findByUserId(userId);
     }
+
+    
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteNotification(@PathVariable String id) {
