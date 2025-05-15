@@ -100,5 +100,12 @@ public class MediaController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-   
+    // Delete media
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMedia(@PathVariable String id) {
+        if (mediaService.deleteMedia(id)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
