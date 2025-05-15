@@ -29,22 +29,15 @@ public class NotificationService {
         return notificationRepository.findAllByDeleteStatusFalse();
     }
 
-    
+    public List<Notification> getNotificationsByUser(String userId) {
+        return notificationRepository.findByReceiverIdAndDeleteStatusFalse(userId);
+    }
 
     public Optional<Notification> getNotificationById(String id) {
         return notificationRepository.findByIdAndDeleteStatusFalse(id);
     }
 
-    public Notification createNotification(Notification notification, String receiverId) {
-        Optional<User> userOptional = userRepository.findById(receiverId);
-        if (userOptional.isPresent()) {
-            notification.setReceiver(userOptional.get());
-            notification.setDeleteStatus(false);
-
-            return notificationRepository.save(notification);
-        }
-        return null;
-    }
+    
 
     public boolean deleteNotification(String id) {
         return notificationRepository.findById(id).map(notification -> {
