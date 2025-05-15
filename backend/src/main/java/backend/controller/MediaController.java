@@ -51,7 +51,26 @@ public class MediaController {
         return new ResponseEntity<>(mediaList, HttpStatus.OK);
     }
 
-   
+    // Create media (basic)
+    @PostMapping("/post/{postId}")
+    public ResponseEntity<Media> createMedia(@RequestBody MediaDTO mediaDTO,
+                                             @PathVariable String postId) {
+        Optional<PhotoPost> post = postService.getPostById(postId);
+        if(post.isPresent()){
+            Media media = new Media();
+            media.setType(mediaDTO.getType());
+            media.setUrl(mediaDTO.getUrl());
+            media.setDeleteStatus(false);
+            media.setRelatedPost(post.get());
+            System.out.println(media.getRelatedPost());
+            Media createdMedia = mediaService.createMedia(media, postId);
+
+            if (createdMedia != null) {
+                return new ResponseEntity<>(createdMedia, HttpStatus.CREATED);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 
     
 
