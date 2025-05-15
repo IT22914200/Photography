@@ -61,13 +61,12 @@ public class UserController {
     }
 
     //Display
-    
-
-    @GetMapping("/user/{id}")
-    UserModel getUserId(@PathVariable String id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(id));
+    @GetMapping("/user")
+    List<UserModel> getAllUsers() {
+        return userRepository.findAll();
     }
+
+    
 
     //update
     @PutMapping("/user/{id}")
