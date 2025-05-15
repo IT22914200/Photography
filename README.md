@@ -1,1 +1,1 @@
-# EduShare
+# PixelVibe
