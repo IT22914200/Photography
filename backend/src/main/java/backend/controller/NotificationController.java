@@ -22,14 +22,14 @@ public class NotificationController {
         return notificationRepository.findByUserId(userId);
     }
 
-    
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteNotification(@PathVariable String id) {
-        if (notificationRepository.existsById(id)) {
-            notificationRepository.deleteById(id);
-            return ResponseEntity.ok("Notification deleted");
-        }
-        return ResponseEntity.notFound().build();
+    @PutMapping("/{id}/markAsRead")
+    public ResponseEntity<?> markAsRead(@PathVariable String id) {
+        return notificationRepository.findById(id).map(notification -> {
+            notification.setRead(true);
+            notificationRepository.save(notification);
+            return ResponseEntity.ok("Notification marked as read");
+        }).orElse(ResponseEntity.notFound().build());
     }
+
+    
 }
