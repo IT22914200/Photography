@@ -36,7 +36,20 @@ public class MediaController {
         return new ResponseEntity<>(mediaList, HttpStatus.OK);
     }
 
-   
+    // Get media by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Media> getMediaById(@PathVariable String id) {
+        Optional<Media> media = mediaService.getMediaById(id);
+        return media.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    // Get media by post ID
+    @GetMapping("/post/{postId}")
+    public ResponseEntity<List<Media>> getMediaByPostId(@PathVariable String postId) {
+        List<Media> mediaList = mediaService.getMediaByPostId(postId);
+        return new ResponseEntity<>(mediaList, HttpStatus.OK);
+    }
 
    
 
