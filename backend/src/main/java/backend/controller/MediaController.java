@@ -89,7 +89,16 @@ public class MediaController {
         }
     }
 
-   
+    // Update media
+    @PutMapping("/{id}")
+    public ResponseEntity<Media> updateMedia(@PathVariable String id,
+                                             @RequestBody Media mediaDetails) {
+        Media updatedMedia = mediaService.updateMedia(id, mediaDetails);
+        if (updatedMedia != null) {
+            return new ResponseEntity<>(updatedMedia, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
    
 }
