@@ -122,12 +122,15 @@ public class UserController {
         }).orElseThrow(() -> new UserNotFoundException("User not found: " + userID));
     }
 
-    
-
-    @GetMapping("/user/{userID}/followedUsers")
-    public List<String> getFollowedUsers(@PathVariable String userID) {
-        return userRepository.findById(userID)
-                .map(user -> new ArrayList<>(user.getFollowedUsers())) // Convert Set to List
-                .orElseThrow(() -> new UserNotFoundException("User not found: " + userID));
+    @PutMapping("/user/{userID}/unfollow")
+    public ResponseEntity<?> unfollowUser(@PathVariable String userID, @RequestBody Map<String, String> request) {
+        String unfollowUserID = request.get("unfollowUserID");
+        return userRepository.findById(userID).map(user -> {
+            user.getFollowedUsers().remove(unfollowUserID);
+            userRepository.save(user);
+            return ResponseEntity.ok(Map.of("message", "User unfollowed successfully"));
+        }).orElseThrow(() -> new UserNotFoundException("User not found: " + userID));
     }
+
+   
 }
