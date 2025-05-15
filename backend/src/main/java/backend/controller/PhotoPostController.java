@@ -36,6 +36,22 @@ public class PhotoPostController {
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
+    // Get posts by current user
+    @GetMapping("/my-posts/{userId}")
+    public ResponseEntity<List<PhotoPost>> getMyPosts(@PathVariable String userId) {
+
+        List<PhotoPost> posts = cookingPostService.getPostsByUser(userId);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
+    // Get post by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<PhotoPost> getPostById(@PathVariable String id) {
+        Optional<PhotoPost> post = cookingPostService.getPostById(id);
+        return post.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
   
 
   
