@@ -40,7 +40,13 @@ public class CommentController {
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 
-    
+    // Get comment by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Comment> getCommentById(@PathVariable String id) {
+        Optional<Comment> comment = commentService.getCommentById(id);
+        return comment.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
     
 
