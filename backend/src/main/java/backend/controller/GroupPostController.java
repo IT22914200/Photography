@@ -39,7 +39,14 @@ public class GroupPostController {
         return ResponseEntity.ok(post);
     }
 
-    
+    /**
+     * Get posts by group ID
+     */
+    @GetMapping("/group/{groupId}")
+    public ResponseEntity<List<GroupPostDTO.GroupPostResponse>> getPostsByGroupId(@PathVariable String groupId) {
+        List<GroupPostDTO.GroupPostResponse> posts = groupPostService.getPostsByGroupId(groupId);
+        return ResponseEntity.ok(posts);
+    }
 
    
 
