@@ -34,5 +34,45 @@ public class Like {
         this.likedPost = likedPost;
     }
 
-    
+    // Getters and setters
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Date getLikedAt() {
+        return likedAt;
+    }
+
+    public void setLikedAt(Date likedAt) {
+        this.likedAt = likedAt;
+    }
+
+    public boolean isDeleteStatus() {
+        return deleteStatus;
+    }
+
+    public void setDeleteStatus(boolean deleteStatus) {
+        this.deleteStatus = deleteStatus;
+    }
+
+    public User getLikedBy() {
+        return likedBy;
+    }
+
+    public void setLikedBy(User likedBy) {
+        this.likedBy = likedBy;
+    }
+
+    public PhotoPost getLikedPost() {
+        return likedPost;
+    }
+
+    public void setLikedPost(PhotoPost likedPost) {
+        this.likedPost = likedPost;
+    }
 }
