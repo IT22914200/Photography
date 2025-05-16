@@ -39,7 +39,10 @@ public class LikeService {
         this.notificationService = notificationService;
     }
 
-    
+    // Get all likes
+    public List<Like> getAllLikes() {
+        return likeRepository.findAllByDeleteStatusFalse();
+    }
 
     
     
