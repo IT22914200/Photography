@@ -144,7 +144,10 @@ public class GroupPostService {
             throw new IllegalArgumentException("Only the post author can delete this post");
         }
 
-       
+        // Soft delete the post
+        post.setDeleteStatus(true);
+        groupPostRepository.save(post);
+    }
 
     
 }
