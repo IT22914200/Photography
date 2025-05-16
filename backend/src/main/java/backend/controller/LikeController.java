@@ -41,6 +41,12 @@ public class LikeController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    // Get likes by post ID
+    @GetMapping("/post/{postId}")
+    public ResponseEntity<List<Like>> getLikesByPostId(@PathVariable String postId) {
+        List<Like> likes = likeService.getLikesByPostId(postId);
+        return new ResponseEntity<>(likes, HttpStatus.OK);
+    }
 
     
 
