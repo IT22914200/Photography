@@ -55,7 +55,13 @@ public class CommentController {
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 
-    
+    // Get comments by current user
+    @GetMapping("/my-comments")
+    public ResponseEntity<List<Comment>> getMyComments(@AuthenticationPrincipal UserDetails userDetails) {
+        String userId = userDetails.getUsername();
+        List<Comment> comments = commentService.getCommentsByUserId(userId);
+        return new ResponseEntity<>(comments, HttpStatus.OK);
+    }
 
    
 
