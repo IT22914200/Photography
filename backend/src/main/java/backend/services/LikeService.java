@@ -49,7 +49,10 @@ public class LikeService {
         return likeRepository.findByIdAndDeleteStatusFalse(id);
     }
 
-    
+    // Get likes by post ID
+    public List<Like> getLikesByPostId(String postId) {
+        return likeRepository.findByLikedPostIdAndDeleteStatusFalse(postId);
+    }
 
     
 
