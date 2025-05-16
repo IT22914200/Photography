@@ -61,7 +61,10 @@ public class LikeService {
         return likes;
     }
 
-    
+    // Check if user liked a post
+    public Optional<Like> hasUserLikedPost(String userId, String postId) {
+        return likeRepository.findByLikedByIdAndLikedPostIdAndDeleteStatusFalse(userId, postId);
+    }
 
     
               
