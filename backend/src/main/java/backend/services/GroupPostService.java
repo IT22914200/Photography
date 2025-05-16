@@ -126,7 +126,11 @@ public class GroupPostService {
         post.setDescription(postRequest.getDescription());
         post.setMediaUrl(postRequest.getMediaUrl());
 
-       
+        // Save the updated post
+        GroupPost updatedPost = groupPostRepository.save(post);
+
+        return mapPostToResponseDTO(updatedPost);
+    }
 
     
         
