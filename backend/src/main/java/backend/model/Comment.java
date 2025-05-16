@@ -37,5 +37,53 @@ public class Comment {
         this.commentedOn = commentedOn;
     }
 
-    
+    // Getters and setters
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Date getCommentedAt() {
+        return commentedAt;
+    }
+
+    public void setCommentedAt(Date commentedAt) {
+        this.commentedAt = commentedAt;
+    }
+
+    public boolean isDeleteStatus() {
+        return deleteStatus;
+    }
+
+    public void setDeleteStatus(boolean deleteStatus) {
+        this.deleteStatus = deleteStatus;
+    }
+
+    public User getCommentedBy() {
+        return commentedBy;
+    }
+
+    public void setCommentedBy(User commentedBy) {
+        this.commentedBy = commentedBy;
+    }
+
+    public PhotoPost getCommentedOn() {
+        return commentedOn;
+    }
+
+    public void setCommentedOn(PhotoPost commentedOn) {
+        this.commentedOn = commentedOn;
+    }
 }
