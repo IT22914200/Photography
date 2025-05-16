@@ -47,7 +47,17 @@ public class GroupPostDTO {
         }
     }
 
-   
+    public static class GroupPostResponse {
+        private String id;
+        private String title;
+        private String description;
+        private String mediaUrl;
+        private Date createdAt;
+        private UserSummaryDTO postedBy;
+        private GroupSummaryDTO postedOn;
+
+        
+    }
 
     
 
