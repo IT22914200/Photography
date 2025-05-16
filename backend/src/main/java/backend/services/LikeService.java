@@ -66,7 +66,12 @@ public class LikeService {
         return likeRepository.findByLikedByIdAndLikedPostIdAndDeleteStatusFalse(userId, postId);
     }
 
-    
+    // Create like
+    public Like createLike(String postId, String userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        Optional<PhotoPost> postOptional = cookingPostRepository.findById(postId);
+
+        if (userOptional.isPresent() && postOptional.isPresent()) {
               
 
    
