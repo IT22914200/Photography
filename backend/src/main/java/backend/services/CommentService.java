@@ -44,7 +44,10 @@ public class CommentService {
         return commentRepository.findByIdAndDeleteStatusFalse(id);
     }
 
-    
+    // Get comments by post ID
+    public List<Comment> getCommentsByPostId(String postId) {
+        return commentRepository.findByCommentedOnIdAndDeleteStatusFalse(postId);
+    }
 
     
 
