@@ -1,6 +1,6 @@
 # PixelVibe
 
-<h1 align="center">This is a photography website designed to showcase stunning photography portfolios. The website is built with React for the frontend and  Springboot for backend. It allows users to view and interact with photography posts, access features like do tasks, learning plans and feedbacks</h1>
+<h3 align="center">This is a photography website designed to showcase stunning photography portfolios. The website is built with React for the frontend and  Springboot for backend. It allows users to view and interact with photography posts, access features like do tasks, learning plans and feedbacks</h3>
 
 
 <h1 align="center">
