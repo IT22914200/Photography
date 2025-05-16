@@ -56,7 +56,62 @@ public class GroupPostDTO {
         private UserSummaryDTO postedBy;
         private GroupSummaryDTO postedOn;
 
-        
+        // Getters and setters
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public String getMediaUrl() {
+            return mediaUrl;
+        }
+
+        public void setMediaUrl(String mediaUrl) {
+            this.mediaUrl = mediaUrl;
+        }
+
+        public Date getCreatedAt() {
+            return createdAt;
+        }
+
+        public void setCreatedAt(Date createdAt) {
+            this.createdAt = createdAt;
+        }
+
+        public UserSummaryDTO getPostedBy() {
+            return postedBy;
+        }
+
+        public void setPostedBy(UserSummaryDTO postedBy) {
+            this.postedBy = postedBy;
+        }
+
+        public GroupSummaryDTO getPostedOn() {
+            return postedOn;
+        }
+
+        public void setPostedOn(GroupSummaryDTO postedOn) {
+            this.postedOn = postedOn;
+        }
     }
 
     
