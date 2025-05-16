@@ -41,7 +41,13 @@ public class GroupPostService {
         return mapPostsToResponseDTOs(posts);
     }
 
-    
+    /**
+     * Get group post by ID
+     */
+    public GroupPostDTO.GroupPostResponse getGroupPostById(String postId) {
+        GroupPost post = findGroupPostById(postId);
+        return mapPostToResponseDTO(post);
+    }
 
     
 
