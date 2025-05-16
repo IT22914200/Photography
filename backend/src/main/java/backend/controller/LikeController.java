@@ -48,7 +48,13 @@ public class LikeController {
         return new ResponseEntity<>(likes, HttpStatus.OK);
     }
 
-    
+    // Get likes by current user
+    @GetMapping("/my-likes")
+    public ResponseEntity<List<Like>> getMyLikes(@AuthenticationPrincipal UserDetails userDetails) {
+        String userId = userDetails.getUsername();
+        List<Like> likes = likeService.getLikesByUserId(userId);
+        return new ResponseEntity<>(likes, HttpStatus.OK);
+    }
 
     
 
