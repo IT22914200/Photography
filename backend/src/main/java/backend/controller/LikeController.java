@@ -33,7 +33,13 @@ public class LikeController {
         return new ResponseEntity<>(likes, HttpStatus.OK);
     }
 
-    
+    // Get like by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Like> getLikeById(@PathVariable String id) {
+        Optional<Like> like = likeService.getLikeById(id);
+        return like.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
 
     
