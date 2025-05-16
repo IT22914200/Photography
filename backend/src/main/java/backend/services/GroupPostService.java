@@ -49,7 +49,17 @@ public class GroupPostService {
         return mapPostToResponseDTO(post);
     }
 
-    
+    /**
+     * Get posts by group ID
+     */
+    public List<GroupPostDTO.GroupPostResponse> getPostsByGroupId(String groupId) {
+        // Verify group exists
+        groupRepository.findById(groupId)
+                .orElseThrow(() -> new ResourceNotFoundException("Group not found with ID: " + groupId));
+
+        List<GroupPost> posts = groupPostRepository.findByPostedOnIdAndDeleteStatusFalseOrderByCreatedAtDesc(groupId);
+        return mapPostsToResponseDTOs(posts);
+    }
 
     
      
