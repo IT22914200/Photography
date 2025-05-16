@@ -94,5 +94,12 @@ public class LikeController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    
+    // Delete like (admin function)
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteLike(@PathVariable String id) {
+        if (likeService.deleteLike(id)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
