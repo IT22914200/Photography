@@ -153,7 +153,16 @@ public class GroupPostDTO {
         }
     }
 
-    
+    public static class GroupSummaryDTO {
+        private String id;
+        private String name;
+
+        public GroupSummaryDTO(Group group) {
+            if (group != null) {
+                this.id = group.getId();
+                this.name = group.getName();
+            }
+        }
 
        
 }
