@@ -149,5 +149,31 @@ public class GroupPostService {
         groupPostRepository.save(post);
     }
 
-    
+    // Helper methods
+    private GroupPost findGroupPostById(String postId) {
+        GroupPost post = groupPostRepository.findByIdAndDeleteStatusFalse(postId);
+        if (post == null) {
+            throw new ResourceNotFoundException("Group post not found with ID: " + postId);
+        }
+        return post;
+    }
+
+    private GroupPostDTO.GroupPostResponse mapPostToResponseDTO(GroupPost post) {
+        GroupPostDTO.GroupPostResponse response = new GroupPostDTO.GroupPostResponse();
+        response.setId(post.getId());
+        response.setTitle(post.getTitle());
+        response.setDescription(post.getDescription());
+        response.setMediaUrl(post.getMediaUrl());
+        response.setCreatedAt(post.getCreatedAt());
+        response.setPostedBy(new GroupPostDTO.UserSummaryDTO(post.getPostedBy()));
+        response.setPostedOn(new GroupPostDTO.GroupSummaryDTO(post.getPostedOn()));
+
+        return response;
+    }
+
+    private List<GroupPostDTO.GroupPostResponse> mapPostsToResponseDTOs(List<GroupPost> posts) {
+        return posts.stream()
+                .map(this::mapPostToResponseDTO)
+                .collect(Collectors.toList());
+    }
 }
