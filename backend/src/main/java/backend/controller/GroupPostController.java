@@ -21,7 +21,14 @@ public class GroupPostController {
         this.groupPostService = groupPostService;
     }
 
-    
+    /**
+     * Get all group posts
+     */
+    @GetMapping
+    public ResponseEntity<List<GroupPostDTO.GroupPostResponse>> getAllGroupPosts() {
+        List<GroupPostDTO.GroupPostResponse> posts = groupPostService.getAllGroupPosts();
+        return ResponseEntity.ok(posts);
+    }
 
     
     
