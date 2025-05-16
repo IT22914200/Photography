@@ -85,7 +85,14 @@ public class GroupPostService {
         Group group = groupRepository.findById(postRequest.getGroupId())
                 .orElseThrow(() -> new ResourceNotFoundException("Group not found with ID: " + postRequest.getGroupId()));
 
-       
+        // Verify user is a member of the group
+        boolean isMember = group.getMembers().stream()
+                .anyMatch(member -> member.getId().equals(userId));
+
+        if (!isMember) {
+            throw new IllegalArgumentException("User is not a member of this group");
+        }
+
        
 
    
