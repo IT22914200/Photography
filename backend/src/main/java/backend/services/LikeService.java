@@ -83,7 +83,19 @@ public class LikeService {
             like.setLikedPost(postOptional.get());
             like.setDeleteStatus(false);
 
-   
+            // Increment like count on post
+            cookingPostService.incrementLikeCount(postId);
+            Notification notification = new Notification();
+            notification.setDeleteStatus(false);
+            notification.setReceiver(like.getLikedPost().getCreatedBy());
+            notification.setTitle("You have a new like");
+            notification.setSubtitle(like.getLikedBy().getName() + " liked to your post");
+            notificationService.createNotification(notification,like.getLikedPost().getCreatedBy().getId());
+
+            return likeRepository.save(like);
+        }
+        return null;
+    }
 
     
 
