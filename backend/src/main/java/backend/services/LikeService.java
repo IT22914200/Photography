@@ -72,7 +72,16 @@ public class LikeService {
         Optional<PhotoPost> postOptional = cookingPostRepository.findById(postId);
 
         if (userOptional.isPresent() && postOptional.isPresent()) {
-              
+            // Check if like already exists
+            if (hasUserLikedPost(userId, postId).isPresent() ) {
+                return null;
+            }
+
+            Like like = new Like();
+            like.setLikedAt(new Date());
+            like.setLikedBy(userOptional.get());
+            like.setLikedPost(postOptional.get());
+            like.setDeleteStatus(false);
 
    
 
