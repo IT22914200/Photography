@@ -54,7 +54,12 @@ public class LikeService {
         return likeRepository.findByLikedPostIdAndDeleteStatusFalse(postId);
     }
 
-    
+    // Get likes by user ID
+    public List<Like> getLikesByUserId(String userId) {
+        List<Like> likes = likeRepository.findByLikedByIdAndDeleteStatusFalse(userId);
+        Collections.reverse(likes);
+        return likes;
+    }
 
     
 
