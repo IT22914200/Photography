@@ -54,7 +54,30 @@ public class CommentService {
         return commentRepository.findByCommentedByIdAndDeleteStatusFalse(userId);
     }
 
-    
+    // Create comment
+    public Comment createComment(String commentText, String postId, String userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        Optional<PhotoPost> postOptional = cookingPostRepository.findById(postId);
+
+        if (userOptional.isPresent() && postOptional.isPresent()) {
+            Comment comment = new Comment();
+            comment.setComment(commentText);
+            comment.setCommentedAt(new Date());
+            comment.setCommentedBy(userOptional.get());
+            comment.setCommentedOn(postOptional.get());
+            comment.setDeleteStatus(false);
+
+            Notification notification = new Notification();
+            notification.setDeleteStatus(false);
+            notification.setReceiver(comment.getCommentedOn().getCreatedBy());
+            notification.setTitle("You have a new comment");
+            notification.setSubtitle(comment.getCommentedBy().getName() + " commented to your post");
+            notificationService.createNotification(notification,comment.getCommentedOn().getCreatedBy().getId());
+
+            return commentRepository.save(comment);
+        }
+        return null;
+    }
 
    
 
