@@ -74,7 +74,17 @@ public class GroupPostService {
     }
 
     /**
-     
+     * Create a new group post
+     */
+    @Transactional
+    public GroupPostDTO.GroupPostResponse createGroupPost(GroupPostDTO.GroupPostRequest postRequest, String userId) {
+        // Get user and group
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with ID: " + userId));
+
+        Group group = groupRepository.findById(postRequest.getGroupId())
+                .orElseThrow(() -> new ResourceNotFoundException("Group not found with ID: " + postRequest.getGroupId()));
+
        
        
 
