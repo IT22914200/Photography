@@ -139,7 +139,10 @@ public class GroupPostService {
     public void deleteGroupPost(String postId, String userId) {
         GroupPost post = findGroupPostById(postId);
 
-        
+        // Check if user is the post author or a group admin
+        if (!post.getPostedBy().getId().equals(userId)) {
+            throw new IllegalArgumentException("Only the post author can delete this post");
+        }
 
        
 
