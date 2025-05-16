@@ -48,7 +48,12 @@ public class CommentController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    
+    // Get comments by post ID
+    @GetMapping("/post/{postId}")
+    public ResponseEntity<List<Comment>> getCommentsByPostId(@PathVariable String postId) {
+        List<Comment> comments = commentService.getCommentsByPostId(postId);
+        return new ResponseEntity<>(comments, HttpStatus.OK);
+    }
 
     
 
