@@ -109,7 +109,13 @@ public class GroupPostService {
         return mapPostToResponseDTO(savedPost);
     }
 
-   
+    /**
+     * Update a group post
+     */
+    @Transactional
+    public GroupPostDTO.GroupPostResponse updateGroupPost(String postId, GroupPostDTO.GroupPostRequest postRequest, String userId) {
+        GroupPost post = findGroupPostById(postId);
+
         
 
         
