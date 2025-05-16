@@ -63,7 +63,24 @@ public class CommentController {
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 
-   
+    // Create comment
+    @PostMapping("/post/{postId}")
+    public ResponseEntity<Comment> createComment(
+            @RequestBody CommentDto commentDto,
+            @PathVariable String postId
+            ) {
+        Optional<User> user = userService.getUserById(commentDto.getCommentedBy());
+        Optional<PhotoPost> post = postService.getPostById(postId);
+        if(user.isPresent() && post.isPresent()){
+
+            Comment createdComment = commentService.createComment(commentDto.getComment(), postId, user.get().getId());
+
+            if (createdComment != null) {
+                return new ResponseEntity<>(createdComment, HttpStatus.CREATED);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 
    
 
