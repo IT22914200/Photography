@@ -114,7 +114,18 @@ public class GroupPostDTO {
         }
     }
 
-    
+    public static class UserSummaryDTO {
+        private String id;
+        private String name;
+        private String username;
+
+        public UserSummaryDTO(User user) {
+            if (user != null) {
+                this.id = user.getId();
+                this.name = user.getName();
+                this.username = user.getUsername();
+            }
+        }
 
         
 
