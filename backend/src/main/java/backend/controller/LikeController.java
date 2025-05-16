@@ -56,7 +56,19 @@ public class LikeController {
         return new ResponseEntity<>(likes, HttpStatus.OK);
     }
 
-    
+    // Check if current user liked a post
+    @GetMapping("/post/{postId}/{userId}/status")
+    public ResponseEntity<LikeStatusDTO> getLikeStatus(@PathVariable String postId,
+                                                 @PathVariable String userId) {
+
+        Optional<Like> like = likeService.hasUserLikedPost(userId, postId);
+        LikeStatusDTO likeStatusDTO = new LikeStatusDTO();
+        if(like.isPresent()){
+            likeStatusDTO.setLiked(true);
+            likeStatusDTO.setLikeId(like.get().getId());
+        }
+        return new ResponseEntity<>(likeStatusDTO, HttpStatus.OK);
+    }
 
     
 
