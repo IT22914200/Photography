@@ -96,5 +96,12 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-
+    // Delete comment
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteComment(@PathVariable String id) {
+        if (commentService.deleteComment(id)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
