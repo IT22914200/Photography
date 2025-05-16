@@ -48,7 +48,14 @@ public class GroupPostController {
         return ResponseEntity.ok(posts);
     }
 
-   
+    /**
+     * Get posts by user ID
+     */
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<GroupPostDTO.GroupPostResponse>> getPostsByUserId(@PathVariable String userId) {
+        List<GroupPostDTO.GroupPostResponse> posts = groupPostService.getPostsByUserId(userId);
+        return ResponseEntity.ok(posts);
+    }
 
     
 
