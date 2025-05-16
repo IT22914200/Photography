@@ -118,5 +118,9 @@ public class LikeService {
             like.setDeleteStatus(true);
             likeRepository.save(like);
 
-    
+            // Decrement like count on post
+            cookingPostService.decrementLikeCount(like.getLikedPost().getId());
+            return true;
+        }).orElse(false);
+    }
 }
