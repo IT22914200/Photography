@@ -121,7 +121,11 @@ public class GroupPostService {
             throw new IllegalArgumentException("Only the post author can update this post");
         }
 
-        
+        // Update post fields
+        post.setTitle(postRequest.getTitle());
+        post.setDescription(postRequest.getDescription());
+        post.setMediaUrl(postRequest.getMediaUrl());
+
        
 
     
