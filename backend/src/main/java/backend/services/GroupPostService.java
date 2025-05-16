@@ -132,7 +132,13 @@ public class GroupPostService {
         return mapPostToResponseDTO(updatedPost);
     }
 
-    
+    /**
+     * Delete a group post (soft delete)
+     */
+    @Transactional
+    public void deleteGroupPost(String postId, String userId) {
+        GroupPost post = findGroupPostById(postId);
+
         
 
        
