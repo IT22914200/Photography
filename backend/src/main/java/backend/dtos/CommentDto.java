@@ -1,0 +1,27 @@
+package com.example.photographsystem.dtos;
+
+import java.util.Date;
+
+public class CommentDto {
+    private String id;
+    private String comment;
+    private Date commentedAt;
+    private boolean deleteStatus;
+    private String commentedBy; // Only string (e.g., user ID or username)
+    private String commentedOn; // Optional: ID of the PhotoPost
+
+    // Constructors
+    public CommentDto() {}
+
+    public CommentDto(String id, String comment, Date commentedAt, boolean deleteStatus,
+                      String commentedBy, String commentedOn) {
+        this.id = id;
+        this.comment = comment;
+        this.commentedAt = commentedAt;
+        this.deleteStatus = deleteStatus;
+        this.commentedBy = commentedBy;
+        this.commentedOn = commentedOn;
+    }
+
+    
+}
