@@ -33,7 +33,13 @@ public class GroupPostService {
         this.groupRepository = groupRepository;
     }
 
-    
+    /**
+     * Get all group posts (active only)
+     */
+    public List<GroupPostDTO.GroupPostResponse> getAllGroupPosts() {
+        List<GroupPost> posts = groupPostRepository.findByDeleteStatusFalseOrderByCreatedAtDesc();
+        return mapPostsToResponseDTOs(posts);
+    }
 
     
 
