@@ -112,7 +112,11 @@ public class LikeService {
         return false;
     }
 
-    
+    // Delete like (admin function)
+    public boolean deleteLike(String id) {
+        return likeRepository.findById(id).map(like -> {
+            like.setDeleteStatus(true);
+            likeRepository.save(like);
 
     
 }
