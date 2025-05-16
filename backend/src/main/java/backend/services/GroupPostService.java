@@ -61,7 +61,19 @@ public class GroupPostService {
         return mapPostsToResponseDTOs(posts);
     }
 
-    
+    /**
+     * Get posts by user ID
+     */
+    public List<GroupPostDTO.GroupPostResponse> getPostsByUserId(String userId) {
+        // Verify user exists
+        userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with ID: " + userId));
+
+        List<GroupPost> posts = groupPostRepository.findByPostedByIdAndDeleteStatusFalseOrderByCreatedAtDesc(userId);
+        return mapPostsToResponseDTOs(posts);
+    }
+
+    /**
      
        
        
