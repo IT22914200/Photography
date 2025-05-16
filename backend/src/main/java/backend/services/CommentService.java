@@ -49,7 +49,10 @@ public class CommentService {
         return commentRepository.findByCommentedOnIdAndDeleteStatusFalse(postId);
     }
 
-    
+    // Get comments by user ID
+    public List<Comment> getCommentsByUserId(String userId) {
+        return commentRepository.findByCommentedByIdAndDeleteStatusFalse(userId);
+    }
 
     
 
