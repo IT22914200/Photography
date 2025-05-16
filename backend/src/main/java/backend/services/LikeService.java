@@ -44,7 +44,11 @@ public class LikeService {
         return likeRepository.findAllByDeleteStatusFalse();
     }
 
-    
+    // Get like by ID
+    public Optional<Like> getLikeById(String id) {
+        return likeRepository.findByIdAndDeleteStatusFalse(id);
+    }
+
     
 
     
