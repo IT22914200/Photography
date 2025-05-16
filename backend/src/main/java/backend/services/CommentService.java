@@ -39,7 +39,10 @@ public class CommentService {
         return commentRepository.findAllByDeleteStatusFalse();
     }
 
-    
+    // Get comment by ID
+    public Optional<Comment> getCommentById(String id) {
+        return commentRepository.findByIdAndDeleteStatusFalse(id);
+    }
 
     
 
