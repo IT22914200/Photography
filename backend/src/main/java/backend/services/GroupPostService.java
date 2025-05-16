@@ -93,7 +93,21 @@ public class GroupPostService {
             throw new IllegalArgumentException("User is not a member of this group");
         }
 
-       
+        // Create new post
+        GroupPost post = new GroupPost();
+        post.setTitle(postRequest.getTitle());
+        post.setDescription(postRequest.getDescription());
+        post.setMediaUrl(postRequest.getMediaUrl());
+        post.setDeleteStatus(false);
+        post.setCreatedAt(new Date());
+        post.setPostedBy(user);
+        post.setPostedOn(group);
+
+        // Save the post
+        GroupPost savedPost = groupPostRepository.save(post);
+
+        return mapPostToResponseDTO(savedPost);
+    }
 
    
         
