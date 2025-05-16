@@ -70,7 +70,18 @@ public class LikeController {
         return new ResponseEntity<>(likeStatusDTO, HttpStatus.OK);
     }
 
-    
+    // Like a post
+    @PostMapping("/post/{postId}")
+    public ResponseEntity<Like> likePost(@RequestBody LikeDTO liekDTO
+                                         ) {
+        String userId = liekDTO.getUserId();
+        Like like = likeService.createLike(liekDTO.getPostId(), userId);
+
+        if (like != null) {
+            return new ResponseEntity<>(like, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 
    
 
