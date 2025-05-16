@@ -34,7 +34,10 @@ public class CommentService {
         this.notificationService = notifcationService;
     }
 
-    
+    // Get all comments
+    public List<Comment> getAllComments() {
+        return commentRepository.findAllByDeleteStatusFalse();
+    }
 
     
 
