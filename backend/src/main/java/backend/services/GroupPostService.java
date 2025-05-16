@@ -116,7 +116,10 @@ public class GroupPostService {
     public GroupPostDTO.GroupPostResponse updateGroupPost(String postId, GroupPostDTO.GroupPostRequest postRequest, String userId) {
         GroupPost post = findGroupPostById(postId);
 
-        
+        // Verify the current user is the post author
+        if (!post.getPostedBy().getId().equals(userId)) {
+            throw new IllegalArgumentException("Only the post author can update this post");
+        }
 
         
        
