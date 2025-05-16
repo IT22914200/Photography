@@ -87,5 +87,12 @@ public class CommentService {
         }).orElse(null);
     }
 
-
+    // Delete comment (soft delete)
+    public boolean deleteComment(String id) {
+        return commentRepository.findById(id).map(comment -> {
+            comment.setDeleteStatus(true);
+            commentRepository.save(comment);
+            return true;
+        }).orElse(false);
+    }
 }
