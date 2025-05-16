@@ -79,7 +79,13 @@ public class CommentService {
         return null;
     }
 
-   
+    // Update comment
+    public Comment updateComment(String id, String newCommentText) {
+        return commentRepository.findById(id).map(comment -> {
+            comment.setComment(newCommentText);
+            return commentRepository.save(comment);
+        }).orElse(null);
+    }
 
 
 }
