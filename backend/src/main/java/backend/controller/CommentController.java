@@ -82,7 +82,19 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-   
+    // Update comment
+    @PutMapping("/{id}")
+    public ResponseEntity<Comment> updateComment(
+            @PathVariable String id,
+            @RequestBody String newCommentText) {
+
+        Comment updatedComment = commentService.updateComment(id, newCommentText);
+
+        if (updatedComment != null) {
+            return new ResponseEntity<>(updatedComment, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
 
 }
