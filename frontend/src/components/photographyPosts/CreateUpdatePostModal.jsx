@@ -126,6 +126,18 @@ const CreateUpdatePostModal = ({ isOpen, onClose, initialPost = null,onSubmitSuc
     }
   };
 
-  
+  const removeMedia = (index) => {
+    // Remove from previews
+    setMediaPreview(prev => prev.filter((_, i) => i !== index));
+    
+    // Remove from files if it's a new file
+    if (!mediaPreview[index].existingMedia) {
+      setMediaFiles(prev => prev.filter((_, i) => {
+        // Match the file with the preview
+        const previewsBeforeIndex = mediaPreview.slice(0, index)
+          .filter(p => !p.existingMedia).length;
+        return i !== (index - (mediaPreview.length - mediaFiles.length - previewsBeforeIndex));
+      }));
+      
       
     
