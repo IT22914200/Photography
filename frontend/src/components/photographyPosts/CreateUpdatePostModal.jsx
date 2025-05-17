@@ -199,6 +199,11 @@ const CreateUpdatePostModal = ({ isOpen, onClose, initialPost = null,onSubmitSuc
             .filter(item => !existingMediaIds.includes(item.id))
             .map(item => item.id);
           
-          
+          // Delete media items that were removed
+          for (const mediaId of mediaToDelete) {
+            await mediaApi.deleteMedia(mediaId);
+          }
+        }
+      } else {
         
       
