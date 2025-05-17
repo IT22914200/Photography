@@ -129,8 +129,7 @@ const FeedbacksPage = () => {
           onClick={() => handleOpenModal()}
           className="px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg shadow-md hover:from-purple-600 hover:to-indigo-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
         >
-          Add Feedback
-        </button>
+          
       </div>
 
       {loading ? (
@@ -165,7 +164,8 @@ const FeedbacksPage = () => {
                     onClick={() => handleOpenModal(feedback)}
                     className="px-3 py-1 text-sm text-purple-600 hover:text-purple-800 focus:outline-none"
                   >
-                  
+                    Edit
+                  </button>
                   <button
                     onClick={() => handleDelete(feedback.id)}
                     className="px-3 py-1 text-sm text-red-600 hover:text-red-800 focus:outline-none"
