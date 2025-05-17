@@ -52,7 +52,21 @@ const CreateUpdatePostModal = ({ isOpen, onClose, initialPost = null,onSubmitSuc
       return;
     }
     
+    // Validate media count - maximum 3 media items
+    const totalMedia = mediaFiles.length + files.length;
+    if (totalMedia > 3) {
+      toast.error('Maximum 3 media files allowed');
+      return;
+    }
     
+    // Check for video count
+    const existingVideos = mediaFiles.filter(file => file.type.startsWith('video/'));
+    const newVideos = files.filter(file => file.type.startsWith('video/'));
+    
+    if (existingVideos.length + newVideos.length > 1) {
+      toast.error('Only one video is allowed');
+      return;
+    }
     
     
         
