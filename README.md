@@ -4,7 +4,6 @@
 A modern photography portfolio platform built with React and Spring Boot
 </h3>
 
-
 ## 🚀 Features
 
 - **User Profiles** - Customizable photographer profiles
