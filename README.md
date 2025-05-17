@@ -1,23 +1,29 @@
-# PixelVibe
+# PixelVibe 📸
 
-<h3 align="center">This is a photography website designed to showcase stunning photography portfolios. The website is built with React for the frontend and  Springboot for backend. It allows users to view and interact with photography posts, access features like do tasks, learning plans and feedbacks</h3>
+<h3 align="center">
+A modern photography portfolio platform built with React and Spring Boot
+</h3>
 
+## 🚀 Features
 
-<h1 align="center">
-<p align="center">
+- **User Profiles** - Customizable photographer profiles
+- **Photography Post** - Beautiful grid layout for photo displays
+- **Task Management** - Assign and track photography tasks
+- **Learning Plans** - Structured photography learning paths
+- **Feedback System** - Get critiques on your work
   
-### 🛠️ Tech Stack
-  
-| Category        | Technology   |
-|-----------------|-------------|
-| **Frontend**    | React       |
-| **Backend**     | Spring Boot |
-| **Database**    | MongoDB     |
-| **Auth**       | OAuth 2.0   |
-| **Deployment**  | AWS         |
+## 🛠 Tech Stack
 
-</h1>
-</p>
+| Category       | Technology   |
+|---------------|-------------|
+| **Frontend**  | React       |
+| **Backend**   | Spring Boot |
+| **Database**  | MongoDB     |
+| **Auth**      | OAuth 2.0   |
+
+
+
+
 
 
 
