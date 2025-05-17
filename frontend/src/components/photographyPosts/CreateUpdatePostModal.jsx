@@ -95,5 +95,37 @@ const CreateUpdatePostModal = ({ isOpen, onClose, initialPost = null,onSubmitSuc
         // All validations passed, update state
         setMediaFiles(prev => [...prev, ...files]);
         
+        // Create preview URLs
+        const newPreviews = files.map(file => ({
+          url: URL.createObjectURL(file),
+          type: file.type.startsWith('image/') ? 'image' : 'video',
+          file: file
+        }));
         
+        setMediaPreview(prev => [...prev, ...newPreviews]);
+        
+      } catch (error) {
+        toast.error(error);
+      }
+    };
+    
+    if (newVideos.length > 0) {
+      processFiles();
+    } else {
+      // No videos to validate, just update state
+      setMediaFiles(prev => [...prev, ...files]);
+      
+      // Create preview URLs
+      const newPreviews = files.map(file => ({
+        url: URL.createObjectURL(file),
+        type: file.type.startsWith('image/') ? 'image' : 'video',
+        file: file
+      }));
+      
+      setMediaPreview(prev => [...prev, ...newPreviews]);
+    }
+  };
+
+  
+      
     
