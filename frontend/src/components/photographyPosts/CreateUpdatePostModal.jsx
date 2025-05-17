@@ -205,5 +205,10 @@ const CreateUpdatePostModal = ({ isOpen, onClose, initialPost = null,onSubmitSuc
           }
         }
       } else {
-        
+        // Create new post
+        const newPost = await cookingPostApi.createPost({...postData,});
+        postId = newPost.id;
+      }
+      
+      
       
