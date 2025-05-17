@@ -165,13 +165,13 @@ const FeedbacksPage = () => {
                     onClick={() => handleOpenModal(feedback)}
                     className="px-3 py-1 text-sm text-purple-600 hover:text-purple-800 focus:outline-none"
                   >
-                    Edit
-                  </button>
+                  
                   <button
                     onClick={() => handleDelete(feedback.id)}
                     className="px-3 py-1 text-sm text-red-600 hover:text-red-800 focus:outline-none"
                   >
-                   
+                    Delete
+                  </button>
                 </div>
               )}
             </div>
