@@ -155,4 +155,42 @@ const CreateUpdatePostModal = ({ isOpen, onClose, initialPost = null,onSubmitSuc
       return false;
     }
     
+    // At least one media item is required
+    if (mediaPreview.length === 0) {
+      toast.error('At least one photo or video is required');
+      return false;
+    }
     
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!validateForm()) return;
+    
+    setIsLoading(true);
+    
+    try {
+      let postData = {
+        title,
+        description,
+        createdAt: new Date(),
+        likeCount: initialPost?.likeCount || 0,
+        deleteStatus: false,
+        createdBy : userId,
+      };
+      
+      let postId;
+      
+      // Create or update the post first
+      if (initialPost) {
+        // Update existing post
+        const updatedPost = await cookingPostApi.updatePost(initialPost.id, postData);
+        postId = updatedPost.id;
+        
+        
+          
+          
+        
+      
