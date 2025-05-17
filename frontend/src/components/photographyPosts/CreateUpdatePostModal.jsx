@@ -272,6 +272,22 @@ const CreateUpdatePostModal = ({ isOpen, onClose, initialPost = null,onSubmitSuc
     setMediaFiles([]);
     setUploadProgress({});
     
+    // Clean up object URLs to prevent memory leaks
+    mediaPreview.forEach(preview => {
+      if (!preview.existingMedia) {
+        URL.revokeObjectURL(preview.url);
+      }
+    });
+    setMediaPreview([]);
     
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  const handleCancel = () => {
+    resetForm();
+    onClose();
+  };
 
   
