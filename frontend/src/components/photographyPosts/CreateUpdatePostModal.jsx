@@ -217,4 +217,43 @@ const CreateUpdatePostModal = ({ isOpen, onClose, initialPost = null,onSubmitSuc
         )
       );
       
+      // Upload files to Firebase and create media entries
+      for (let i = 0; i < newFiles.length; i++) {
+        const file = newFiles[i];
+        const fileType = file.type.startsWith('image/') ? 'image' : 'video';
+        
+        try {
+          // Update progress state for this file
+          const updateProgress = (progress) => {
+            setUploadProgress(prev => ({
+              ...prev,
+              [i]: progress
+            }));
+          };
+          
+          // Upload to Firebase
+          const downloadUrl = await uploadFile(file, updateProgress);
+          
+          // Create media entry with the download URL
+          const mediaData = {
+            type: fileType,
+            url: downloadUrl,
+            deleteStatus: false,
+            relatedPost: postId
+          };
+          
+          await mediaApi.createMedia(mediaData);
+        } catch (error) {
+          console.error(`Error uploading file ${i}:`, error);
+          toast.error(`Failed to upload media ${i + 1}`);
+        }
+         
+      }
       
+      toast.success(initialPost ? 'Post updated successfully!' : 'Post created successfully!');
+      
+     
+    
+    
+
+  
