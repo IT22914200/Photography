@@ -252,7 +252,25 @@ const CreateUpdatePostModal = ({ isOpen, onClose, initialPost = null,onSubmitSuc
       
       toast.success(initialPost ? 'Post updated successfully!' : 'Post created successfully!');
       
-     
+      // Clean up and close modal
+      resetForm();
+      onClose();
+      
+    } catch (error) {
+      console.error('Error saving post:', error);
+      toast.error(error.response?.data?.message || 'Failed to save post');
+    } finally {
+      setIsLoading(false);
+      setUploadProgress({});
+      onSubmitSuccess();
+    }
+  };
+
+  const resetForm = () => {
+    setTitle('');
+    setDescription('');
+    setMediaFiles([]);
+    setUploadProgress({});
     
     
 
