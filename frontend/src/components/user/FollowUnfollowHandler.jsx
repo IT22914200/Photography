@@ -32,8 +32,19 @@ const FollowUnfollowHandler = ({
     }
   }, [userId]);
 
+  const handleFollow = async () => {
+    try {
+      setIsLoading(true);
+      await followApi.followUser(userId);
+      setIsFollowing(true);
+      setFollowersCount((prevCount) => prevCount + 1);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error following user:", error);
+      setIsLoading(false);
+    }
+  };
   
-
   const handleUnfollow = async () => {
     try {
       setIsLoading(true);
