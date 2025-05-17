@@ -210,5 +210,11 @@ const CreateUpdatePostModal = ({ isOpen, onClose, initialPost = null,onSubmitSuc
         postId = newPost.id;
       }
       
+      // Upload new media files to Firebase
+      const newFiles = mediaFiles.filter(file => 
+        !mediaPreview.find(preview => 
+          preview.existingMedia && preview.file === file
+        )
+      );
       
       
