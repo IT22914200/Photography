@@ -71,11 +71,7 @@ const FeedbacksPage = () => {
         await feedbackApi.updateFeedback(currentFeedback.id, { comment });
         toast.success('Feedback updated successfully');
       } else {
-        // Create new feedback
-        await feedbackApi.createFeedback({ 
-          user: { id: userId },
-          comment 
-        });
+        
         toast.success('Feedback submitted successfully');
       }
       
@@ -129,7 +125,8 @@ const FeedbacksPage = () => {
           onClick={() => handleOpenModal()}
           className="px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg shadow-md hover:from-purple-600 hover:to-indigo-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
         >
-          
+          Add Feedback
+        </button>
       </div>
 
       {loading ? (
