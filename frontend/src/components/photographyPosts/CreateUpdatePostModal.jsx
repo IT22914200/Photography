@@ -189,7 +189,15 @@ const CreateUpdatePostModal = ({ isOpen, onClose, initialPost = null,onSubmitSuc
         const updatedPost = await cookingPostApi.updatePost(initialPost.id, postData);
         postId = updatedPost.id;
         
-        
+        // Handle removed media items
+        if (initialPost.media) {
+          const existingMediaIds = mediaPreview
+            .filter(item => item.existingMedia)
+            .map(item => item.id);
+          
+          const mediaToDelete = initialPost.media
+            .filter(item => !existingMediaIds.includes(item.id))
+            .map(item => item.id);
           
           
         
