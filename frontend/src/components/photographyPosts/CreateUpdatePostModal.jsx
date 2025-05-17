@@ -139,5 +139,20 @@ const CreateUpdatePostModal = ({ isOpen, onClose, initialPost = null,onSubmitSuc
         return i !== (index - (mediaPreview.length - mediaFiles.length - previewsBeforeIndex));
       }));
       
-      
+      // Revoke object URL to prevent memory leaks
+      URL.revokeObjectURL(mediaPreview[index].url);
+    }
+  };
+
+  const validateForm = () => {
+    if (!title.trim()) {
+      toast.error('Title is required');
+      return false;
+    }
+    
+    if (!description.trim()) {
+      toast.error('Description is required');
+      return false;
+    }
+    
     
