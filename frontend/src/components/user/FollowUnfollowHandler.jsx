@@ -12,25 +12,27 @@ const FollowUnfollowHandler = ({
   const [followersCount, setFollowersCount] = useState(initialFollowersCount);
   const [followingCount, setFollowingCount] = useState(initialFollowingCount);
 
-  
+  useEffect(() => {
+    // Check if current user is following this user
+    const checkFollowStatus = async () => {
+      try {
+        setIsLoading(true);
+        const status = await followApi.checkFollowStatus(userId);
+        setIsFollowing(status.following);
+        setIsFollower(status.follower);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error checking follow status:", error);
+        setIsLoading(false);
+      }
+    };
 
     if (userId) {
       checkFollowStatus();
     }
   }, [userId]);
 
-  const handleFollow = async () => {
-    try {
-      setIsLoading(true);
-      await followApi.followUser(userId);
-      setIsFollowing(true);
-      setFollowersCount((prevCount) => prevCount + 1);
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Error following user:", error);
-      setIsLoading(false);
-    }
-  };
+  
 
   const handleUnfollow = async () => {
     try {
