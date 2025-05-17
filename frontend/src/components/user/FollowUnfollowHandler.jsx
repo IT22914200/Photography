@@ -44,7 +44,7 @@ const FollowUnfollowHandler = ({
       setIsLoading(false);
     }
   };
-  
+
   const handleUnfollow = async () => {
     try {
       setIsLoading(true);
@@ -80,33 +80,7 @@ const FollowUnfollowHandler = ({
         </div>
       </div>
 
-      {/* Follow/Unfollow button */}
-      {!isCurrentUser && (
-        <div className="w-full">
-          {isLoading ? (
-            <button
-              className="w-full py-2 px-4 bg-gray-300 text-gray-500 rounded-md font-medium cursor-not-allowed"
-              disabled
-            >
-              Loading...
-            </button>
-          ) : isFollowing ? (
-            <button
-              className="w-full py-2 px-4 bg-gray-100 hover:bg-gray-200 text-gray-800 border border-gray-300 rounded-md font-medium transition-colors"
-              onClick={handleUnfollow}
-            >
-              Unfollow
-            </button>
-          ) : (
-            <button
-              className="w-full py-2 px-4 bg-purple-500 hover:bg-purple-600 text-white rounded-md font-medium transition-colors"
-              onClick={handleFollow}
-            >
-              Follow
-            </button>
-          )}
-        </div>
-      )}
+      
 
       {/* Optional: Show if this user follows you */}
       {!isCurrentUser && isFollower && (
