@@ -171,8 +171,7 @@ const FeedbacksPage = () => {
                     onClick={() => handleDelete(feedback.id)}
                     className="px-3 py-1 text-sm text-red-600 hover:text-red-800 focus:outline-none"
                   >
-                    Delete
-                  </button>
+                   
                 </div>
               )}
             </div>
@@ -180,6 +179,53 @@ const FeedbacksPage = () => {
         </div>
       )}
 
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={handleCloseModal}
+        style={customStyles}
+        contentLabel="Feedback Modal"
+      >
+        <div className="bg-gradient-to-r from-purple-500 to-indigo-600 p-4 rounded-t-lg animate-gradient-x">
+          <h2 className="text-xl font-bold text-white">
+            {currentFeedback ? 'Edit Feedback' : 'Add Feedback'}
+          </h2>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="p-6 space-y-4 bg-white rounded-b-lg">
+          <div>
+            <label htmlFor="comment" className="block text-sm font-medium text-gray-700 mb-1">
+              Your Feedback
+            </label>
+            <textarea
+              id="comment"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors duration-200"
+              rows="4"
+              placeholder="Share your thoughts about the app..."
+              required
+            />
+          </div>
+          
+          <div className="flex justify-end space-x-3 pt-4">
+            <button
+              type="button"
+              onClick={handleCloseModal}
+              className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors duration-200"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors duration-200"
+            >
+              {currentFeedback ? 'Update' : 'Submit'}
+            </button>
+          </div>
+        </form>
+      </Modal>
+    </div>
+  );
 };
 
 export default FeedbacksPage;
