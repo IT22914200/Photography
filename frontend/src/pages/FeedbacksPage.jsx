@@ -67,9 +67,7 @@ const FeedbacksPage = () => {
     
     try {
       if (currentFeedback) {
-        // Update existing feedback
-        await feedbackApi.updateFeedback(currentFeedback.id, { comment });
-        toast.success('Feedback updated successfully');
+        
       } else {
         // Create new feedback
         await feedbackApi.createFeedback({ 
