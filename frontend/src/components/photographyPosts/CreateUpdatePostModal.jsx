@@ -68,6 +68,32 @@ const CreateUpdatePostModal = ({ isOpen, onClose, initialPost = null,onSubmitSuc
       return;
     }
     
+    // Validate video duration
+    const validateVideoDuration = async (videoFile) => {
+      return new Promise((resolve, reject) => {
+        const video = document.createElement('video');
+        video.preload = 'metadata';
+        video.onloadedmetadata = function() {
+          window.URL.revokeObjectURL(video.src);
+          if (video.duration > 30) {
+            reject('Video must not exceed 30 seconds');
+          } else {
+            resolve(true);
+          }
+        };
+        video.src = URL.createObjectURL(videoFile);
+      });
+    };
     
+    // Process video files for duration validation
+    const processFiles = async () => {
+      try {
+        for (const file of newVideos) {
+          await validateVideoDuration(file);
+        }
+        
+        // All validations passed, update state
+        setMediaFiles(prev => [...prev, ...files]);
+        
         
     
